@@ -7,11 +7,9 @@ package ucf.assignments;
  * description
  * Name::description::duedate::0/1
  */
-import javafx.beans.binding.ObjectExpression;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +27,6 @@ import java.nio.file.Files;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Optional;
 
 public class ListController extends List {
     public TableColumn<ItemObject, String> ItemName;
@@ -46,10 +43,9 @@ public class ListController extends List {
     public TextField updateDescription;
 
     @FXML
-    public void addNewItemClick(ActionEvent actionEvent) throws IOException {
+    public void addNewItemClick() throws IOException {
         //Call addItem in AddItem class passing Path from selected table view
         EditItem edit = new EditItem();
-        LoadList load = new LoadList();
         String[] properties = new String[3];
         properties[0] = addItemName.getText();
         properties[1] = addItemDescription.getText();
@@ -67,7 +63,7 @@ public class ListController extends List {
 
     }
     @FXML
-    public void removeItemClick(ActionEvent actionEvent) throws IOException {
+    public void removeItemClick() throws IOException {
         //Call removeItem in RemoveItem class passing Path from selected table view
         EditItem edit = new EditItem();
         if(itemTable.getSelectionModel().getSelectedItem()!=null)    {
@@ -86,7 +82,7 @@ public class ListController extends List {
     }
 
     @FXML
-    public void editDescriptionClick(ActionEvent actionEvent) throws IOException {
+    public void editDescriptionClick() throws IOException {
         //call editDescription  in EditList class passing Path from selected table view
         EditItem edit = new EditItem();
         if(itemTable.getSelectionModel().getSelectedItem()!=null)    {
@@ -105,7 +101,7 @@ public class ListController extends List {
     }
 
     @FXML
-    public void editDueDateClick(ActionEvent actionEvent) throws IOException {
+    public void editDueDateClick() throws IOException {
         //call editItem from EditItem class passing Path from selected table view
         EditItem edit = new EditItem();
         String date = updateDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -125,7 +121,7 @@ public class ListController extends List {
 
     }
     @FXML
-    public void markCompleteClick(ActionEvent actionEvent) throws IOException {
+    public void markCompleteClick() throws IOException {
         //call completeItem from EditItem class passing Path from selected table view
         EditItem edit = new EditItem();
         if(itemTable.getSelectionModel().getSelectedItem()!=null)    {
@@ -143,7 +139,7 @@ public class ListController extends List {
 
     }
     @FXML
-    public void markIncompleteCLick(ActionEvent actionEvent) throws IOException {
+    public void markIncompleteCLick() throws IOException {
         //call incompleteItem from EditItem class passing Path from selected table view
         EditItem edit = new EditItem();
         if (itemTable.getSelectionModel().getSelectedItem() != null) {
@@ -167,7 +163,7 @@ public class ListController extends List {
 
 
     @FXML
-    public void showCompleteClick(ActionEvent actionEvent) throws IOException {
+    public void showCompleteClick() {
         //call showComplete from LoadItems class passing Path and tableView index from selected table view
         LoadList load = new LoadList();
         File file = load.loadList(pathToFile.getText());
@@ -181,11 +177,11 @@ public class ListController extends List {
         itemTable.setItems(observableItems);
     }
     @FXML
-    public void showIncompleteClick(ActionEvent actionEvent) throws IOException {
+    public void showIncompleteClick() {
         //call showIncomplete from LoadItems class passing Path and tableView index from selected table view
         LoadList load = new LoadList();
         File file = load.loadList(pathToFile.getText());
-        ArrayList<ItemObject> items = load.getCompletedInfo(file);
+        ArrayList<ItemObject> items = load.getIncompleteInfo(file);
         ObservableList<ItemObject> observableItems = FXCollections.observableArrayList(items);
 
         ItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -195,18 +191,18 @@ public class ListController extends List {
         itemTable.setItems(observableItems);
     }
     @FXML
-    public void showAllClick(ActionEvent actionEvent) throws IOException {
+    public void showAllClick() {
         loadHelper();
     }
 
 
     @FXML
-    public void loadListClick(ActionEvent actionEvent) throws IOException {
+    public void loadListClick() {
         pathToFile.setText("");
         loadHelper();
     }
 
-    public void loadHelper() throws IOException {
+    public void loadHelper() {
         LoadList load = new LoadList();
         File file = load.loadList(pathToFile.getText());
         pathToFile.setText(file.getPath());
@@ -220,14 +216,14 @@ public class ListController extends List {
         itemTable.setItems(observableItems);
     }
 
-    public void removeAllCLick(ActionEvent actionEvent) throws IOException {
+    public void removeAllCLick() throws IOException {
         new FileWriter(pathToFile.getText(), false).close();
         loadHelper();
     }
 
-    public void helpButtonClick(ActionEvent actionEvent) {
+    public void helpButtonClick() {
         try   {
-            Parent root = FXMLLoader.load(getClass().getResource("HelpPage.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HelpPage.fxml")));
             Stage help = new Stage();
             Scene scene = new Scene(root);
 
@@ -242,7 +238,7 @@ public class ListController extends List {
 
     }
 
-    public void saveListAsClick(ActionEvent actionEvent) throws IOException {
+    public void saveListAsClick() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select list to load");
 
