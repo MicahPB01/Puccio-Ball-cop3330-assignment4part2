@@ -1,0 +1,76 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class List{
+    main()
+    start()
+
+}
+class ListController{
+public void editTitleClick()
+public void editDescriptionClick()
+public void addNewItemClick()
+public void removeItemClick()
+public void editDueDateClick()
+public void markCompleteClick()
+public void markIncompleteCLick()
+public void showCompleteClick()
+public void showIncompleteClick()
+public void showAllClick()
+public void loadListClick()
+public void addListClick()
+public void removeListClick()
+public void editListClick()
+}
+
+class EditItem{
+    public String addItem(String path)
+    public String removeItem(String path, int index)
+    public String editDescription(String path, int index)
+    public String editDueDate(String path, int index)
+    public String saveList(String path)
+    public String saveAll()
+}
+class EditList{
+    public String addList()
+    public String removeList(String path)
+    public String editTitle(String path)
+}
+class ItemObject{
+    private final SimpleStringProperty name;
+    private final SimpleStringProperty description;
+    private final SimpleStringProperty dueDate;
+    private final SimpleStringProperty status;
+}
+class ListObject{
+    private final SimpleStringProperty name;
+    private final SimpleStringProperty description;
+    private final SimpleStringProperty dueDate;
+    private final SimpleStringProperty status;
+}
+class LoadItems{
+public String showAll(String path)
+public String showComplete(String path)
+public String showIncomplete(String path)
+public String complete(String path, int index)
+public String incomplete(String path, int index)
+}
+class LoadList{
+public String loadList()
+}
+
+
+
+javafx.Application <|-- List
+
+List -- ListController
+ListController -- EditItem
+ListController -- EditList
+ListController -- ItemObject
+ListController -- ListObject
+ListController -- LoadItems
+ListController -- LoadList
+
+
+
+@enduml
