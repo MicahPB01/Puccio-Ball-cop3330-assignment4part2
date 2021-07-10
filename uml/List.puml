@@ -7,68 +7,87 @@ class List{
 
 }
 class ListController{
-public void editTitleClick()
-public void editDescriptionClick()
-public void addNewItemClick()
-public void removeItemClick()
-public void editDueDateClick()
-public void markCompleteClick()
-public void markIncompleteCLick()
-public void showCompleteClick()
-public void showIncompleteClick()
-public void showAllClick()
-public void loadListClick()
-public void addListClick()
-public void removeListClick()
-public void editListClick()
++TableColumn<ItemObject, String> ItemName;
++TableColumn<ItemObject, String> ItemDescription;
++TableColumn<ItemObject, String> ItemDueDate;
++TableColumn<ItemObject, String> ItemStatus;
++TableView<ItemObject> itemTable;
++TextField addItemName;
++Text pathToFile;
++TextField addItemDescription;
++Button loadListButton;
++DatePicker addItemDueDate;
++DatePicker updateDate;
++void editTitleClick()
++void editDescriptionClick()
++void addNewItemClick()
++void removeItemClick()
++void editDueDateClick()
++void markCompleteClick()
++void markIncompleteCLick()
++void showCompleteClick()
++void showAllClick()
++void loadListClick()
++void addListClick()
++void editListClick()
 }
 
 class EditItem{
-    public String addItem(String path)
-    public String removeItem(String path, int index)
-    public String editDescription(String path, int index)
-    public String editDueDate(String path, int index)
-    public String saveList(String path)
-    public String saveAll()
+int length
+FileIO change
+String[] properties
+String[] selectedProperties
+String currentLine
+String newPath
+File file
++String addItem(String, String[])
++String removeItem(String, ItemObject)
++boolean matches(ItemObject, ItemObject)
++String editDescription(String, ItemObject, String)
++String editDueDate(String, ItemObject, String)
++String markIncomplete(String, ItemObject)
++String markComplete(String, ItemObject)
 }
-class EditList{
-    public String addList()
-    public String removeList(String path)
-    public String editTitle(String path)
-}
+
 class ItemObject{
     private final SimpleStringProperty name;
     private final SimpleStringProperty description;
     private final SimpleStringProperty dueDate;
     private final SimpleStringProperty status;
+    +String getDescription()
+    +SimpleStringProperty descriptionProperty()
+    +void setDescription()
+    +String getDueDate()
+    +SimpleStringProperty dueDateProperty()
+    +void setDueDate(String)
+    +String getStatus()
+    +SimpleStringProperty statusProperty()
+    +void setStatus(String)
+    +String getName()
+    +SimpleStringProperty nameProperty()
+    +void setName(String)
+    +ItemObject(String, String, String, String)
 }
-class ListObject{
-    private final SimpleStringProperty name;
-    private final SimpleStringProperty description;
-    private final SimpleStringProperty dueDate;
-    private final SimpleStringProperty status;
-}
-class LoadItems{
-public String showAll(String path)
-public String showComplete(String path)
-public String showIncomplete(String path)
-public String complete(String path, int index)
-public String incomplete(String path, int index)
-}
+
 class LoadList{
-public String loadList()
+    ArrayList<ItemObject> itemsInList
+    String currentLine
+    String[] properties
+    ItemObject tempItem
+    +File loadList(String)
+    +ArrayList<ItemObject> getInfo(File)
+    +ArrayList<ItemObject> getCompletedInfo(File)
+    +ArrayList<ItemObject> getIncompleteInfo(File)
+
 }
 
 
 
-javafx.Application <|-- List
+javafx.Application <|-- ListController
 
-List -- ListController
+ListController -- List
 ListController -- EditItem
-ListController -- EditList
 ListController -- ItemObject
-ListController -- ListObject
-ListController -- LoadItems
 ListController -- LoadList
 
 

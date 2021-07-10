@@ -2,10 +2,8 @@ package ucf.assignments;
 /*
  *  UCF COP3330 Summer 2021 Assignment 4 Solution
  *  Copyright 2021 Micah Puccio-Ball
- *  Files saved as
- * path
- * description
- * Name::description::duedate::0/1
+ *  Tasks are saved as...
+ *  Name::Description::DueDate::Status
  */
 
 import javafx.collections.FXCollections;
@@ -44,8 +42,13 @@ public class ListController extends List {
 
     @FXML
     public void addNewItemClick() throws IOException {
-        //Call addItem in AddItem class passing Path from selected table view
+        //grab info from text boxes
+        //if no file is loaded, create a new file
+        //Call addItem in editItem class passing the current file path and the properties of the object
+        //reload the table
+
         EditItem edit = new EditItem();
+
         String[] properties = new String[3];
         properties[0] = addItemName.getText();
         properties[1] = addItemDescription.getText();
@@ -60,12 +63,16 @@ public class ListController extends List {
         edit.addItem(pathToFile.getText(), properties);
         loadHelper();
 
-
     }
     @FXML
     public void removeItemClick() throws IOException {
-        //Call removeItem in RemoveItem class passing Path from selected table view
+        //get info of selected item in list
+        //Call removeItem in editItem class passing the itemObject
+        //if no item is selected, throw up a message
+        //reload the table
+
         EditItem edit = new EditItem();
+
         if(itemTable.getSelectionModel().getSelectedItem()!=null)    {
             ItemObject selectedObject = itemTable.getSelectionModel().getSelectedItem();
             edit.removeItem(pathToFile.getText(), selectedObject);
@@ -78,16 +85,18 @@ public class ListController extends List {
             noSelection.show();
         }
         loadHelper();
-
     }
 
     @FXML
     public void editDescriptionClick() throws IOException {
-        //call editDescription  in EditList class passing Path from selected table view
+        //call editDescription  in EditItem class passing Path, selected itemObject and the new description
+        //throw up message if no item is selected
+        //reload the table
+
         EditItem edit = new EditItem();
+
         if(itemTable.getSelectionModel().getSelectedItem()!=null)    {
             ItemObject selectedObject = itemTable.getSelectionModel().getSelectedItem();
-
             edit.editDescription(pathToFile.getText(), selectedObject, updateDescription.getText());
         }
         else   {
@@ -102,8 +111,13 @@ public class ListController extends List {
 
     @FXML
     public void editDueDateClick() throws IOException {
-        //call editItem from EditItem class passing Path from selected table view
+        //get new date
+        //call editDueDate from EditItem class passing Path, the selected object, and the new date
+        //throw up a message if no task is selected
+        //reload the table
+
         EditItem edit = new EditItem();
+
         String date = updateDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         if(itemTable.getSelectionModel().getSelectedItem()!=null)    {
             ItemObject selectedObject = itemTable.getSelectionModel().getSelectedItem();
@@ -122,8 +136,12 @@ public class ListController extends List {
     }
     @FXML
     public void markCompleteClick() throws IOException {
-        //call completeItem from EditItem class passing Path from selected table view
+        //call markComplete from EditItem class passing Path and the selected task from the table
+        //throw up message if no task is selected
+        //reload table
+
         EditItem edit = new EditItem();
+
         if(itemTable.getSelectionModel().getSelectedItem()!=null)    {
             ItemObject selectedObject = itemTable.getSelectionModel().getSelectedItem();
             edit.markComplete(pathToFile.getText(), selectedObject);
@@ -140,8 +158,12 @@ public class ListController extends List {
     }
     @FXML
     public void markIncompleteCLick() throws IOException {
-        //call incompleteItem from EditItem class passing Path from selected table view
+        //call markIncomplete from EditItem class passing Path and selected task from table
+        //throw up message if no task is selected
+        //reload table
+
         EditItem edit = new EditItem();
+
         if (itemTable.getSelectionModel().getSelectedItem() != null) {
             ItemObject selectedObject = itemTable.getSelectionModel().getSelectedItem();
             edit.markIncomeplete(pathToFile.getText(), selectedObject);
@@ -155,16 +177,13 @@ public class ListController extends List {
         loadHelper();
     }
 
-
-
-
-
-
-
-
     @FXML
     public void showCompleteClick() {
-        //call showComplete from LoadItems class passing Path and tableView index from selected table view
+        //call load getCompleteInfo from LoadList class passing the path stored in a text field
+        //convert resulting arraylist into an observable arraylist
+        //push data from the list to the table
+        //reload table
+
         LoadList load = new LoadList();
         File file = load.loadList(pathToFile.getText());
         ArrayList<ItemObject> items = load.getCompletedInfo(file);
@@ -178,7 +197,11 @@ public class ListController extends List {
     }
     @FXML
     public void showIncompleteClick() {
-        //call showIncomplete from LoadItems class passing Path and tableView index from selected table view
+        //call load getIncompleteInfo from LoadList class passing the path stored in a text field
+        //convert resulting arraylist into an observable arraylist
+        //push data from the list to the table
+        //reload table
+
         LoadList load = new LoadList();
         File file = load.loadList(pathToFile.getText());
         ArrayList<ItemObject> items = load.getIncompleteInfo(file);
@@ -192,36 +215,53 @@ public class ListController extends List {
     }
     @FXML
     public void showAllClick() {
+        //simply grab and show everything in txt file
         loadHelper();
     }
 
 
     @FXML
     public void loadListClick() {
+        //set the in use file path to nothing to force program to change path
         pathToFile.setText("");
         loadHelper();
     }
 
     public void loadHelper() {
+        //get current file path
+        //call load from the LoadList class passing the path
+        //convert resulting arraylist into obsersvable array list
+        //clear text fields
+        //push data to table
+
         LoadList load = new LoadList();
         File file = load.loadList(pathToFile.getText());
         pathToFile.setText(file.getPath());
         ArrayList<ItemObject> items = load.getInfo(file);
         ObservableList<ItemObject> observableItems = FXCollections.observableArrayList(items);
-
+        addItemName.setText("");
+        addItemDueDate.setValue(null);
+        addItemDescription.setText("");
+        updateDate.setValue(null);
+        updateDescription.setText("");
         ItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
         ItemDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         ItemDueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         ItemStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         itemTable.setItems(observableItems);
+
     }
 
     public void removeAllCLick() throws IOException {
+        //overwrite the file currently in use with ""
+        //reload the table
         new FileWriter(pathToFile.getText(), false).close();
         loadHelper();
     }
 
     public void helpButtonClick() {
+        //open a simple window with text
+        //included the tribute to Rey
         try   {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HelpPage.fxml")));
             Stage help = new Stage();
@@ -234,19 +274,18 @@ public class ListController extends List {
         catch (IOException e)   {
             e.printStackTrace();
         }
-
-
     }
 
     public void saveListAsClick() throws IOException {
+        //have user select new place to save
+        //copy current in use file to the placed they decided to save
+
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select list to load");
+        fileChooser.setTitle("Select save location");
 
         File save = fileChooser.showSaveDialog(new Stage());
+
         File load = new File(pathToFile.getText());
-
         Files.copy(load.toPath(), save.toPath());
-
-
     }
 }

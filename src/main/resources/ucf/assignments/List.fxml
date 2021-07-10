@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ListController">
    <children>
       <Button layoutX="19.0" layoutY="328.0" mnemonicParsing="false" onAction="#editDescriptionClick" prefHeight="25.0" prefWidth="121.0" text="Update Description" />
       <Button layoutX="14.0" layoutY="225.0" mnemonicParsing="false" onAction="#addNewItemClick" prefHeight="25.0" prefWidth="106.0" text="Add New Item" />
@@ -21,23 +21,23 @@
       <Button layoutX="14.0" layoutY="80.0" mnemonicParsing="false" onAction="#showIncompleteClick" prefHeight="25.0" prefWidth="216.0" text="Show Incomplete" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#showAllClick" prefHeight="25.0" prefWidth="216.0" text="Show All" />
       <Accordion layoutX="175.0" layoutY="189.0" />
-      <TableView fx:id="itemTable" layoutX="235.0" layoutY="14.0" prefHeight="205.0" prefWidth="551.0">
+      <TableView fx:id="itemTable" layoutX="235.0" layoutY="14.0" prefHeight="205.0" prefWidth="958.0">
         <columns>
           <TableColumn fx:id="ItemName" prefWidth="117.0" text="Name" />
-          <TableColumn fx:id="ItemDescription" prefWidth="251.0" text="Description" />
-            <TableColumn fx:id="ItemDueDate" minWidth="0.0" prefWidth="85.0" text="Due Date" />
-            <TableColumn fx:id="ItemStatus" prefWidth="97.0" text="Status" />
+          <TableColumn fx:id="ItemDescription" prefWidth="673.0" text="Description" />
+            <TableColumn fx:id="ItemDueDate" minWidth="0.0" prefWidth="95.0" text="Due Date" />
+            <TableColumn fx:id="ItemStatus" minWidth="0.0" prefWidth="72.0" text="Status" />
         </columns>
       </TableView>
       <TextField fx:id="addItemName" layoutX="125.0" layoutY="225.0" prefHeight="25.0" prefWidth="106.0" promptText="Item Name" />
-      <TextField fx:id="addItemDescription" layoutX="15.0" layoutY="258.0" prefHeight="25.0" prefWidth="772.0" promptText="Item Description" />
-      <Button fx:id="loadListButton" layoutX="622.0" layoutY="361.0" mnemonicParsing="false" onAction="#loadListClick" prefHeight="25.0" prefWidth="82.0" text="Load List" />
-      <Button layoutX="704.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveListAsClick" prefHeight="25.0" prefWidth="82.0" text="Save List As" />
+      <TextField fx:id="addItemDescription" layoutX="15.0" layoutY="258.0" prefHeight="25.0" prefWidth="1179.0" promptText="Item Description" />
+      <Button fx:id="loadListButton" layoutX="1029.0" layoutY="361.0" mnemonicParsing="false" onAction="#loadListClick" prefHeight="25.0" prefWidth="82.0" text="Load List" />
+      <Button layoutX="1111.0" layoutY="361.0" mnemonicParsing="false" onAction="#saveListAsClick" prefHeight="25.0" prefWidth="82.0" text="Save List As" />
       <DatePicker fx:id="addItemDueDate" layoutX="235.0" layoutY="225.0" prefHeight="25.0" prefWidth="177.0" promptText="YYYY-MM-DD" />
       <Text fx:id="pathToFile" layoutX="19.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="611.13671875" />
       <Button layoutX="14.0" layoutY="188.0" mnemonicParsing="false" onAction="#removeAllCLick" prefHeight="25.0" prefWidth="106.0" text="Remove All " />
       <DatePicker fx:id="updateDate" layoutX="143.0" layoutY="293.0" promptText="YYYY-MM-DD" />
-      <TextField fx:id="updateDescription" layoutX="143.0" layoutY="328.0" prefHeight="25.0" prefWidth="648.0" promptText="New Item Description" />
-      <Button layoutX="540.0" layoutY="361.0" mnemonicParsing="false" onAction="#helpButtonClick" prefHeight="25.0" prefWidth="82.0" text="Help" />
+      <TextField fx:id="updateDescription" layoutX="143.0" layoutY="328.0" prefHeight="25.0" prefWidth="1050.0" promptText="New Item Description" />
+      <Button layoutX="947.0" layoutY="361.0" mnemonicParsing="false" onAction="#helpButtonClick" prefHeight="25.0" prefWidth="82.0" text="Help" />
    </children>
 </AnchorPane>

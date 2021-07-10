@@ -2,10 +2,8 @@ package ucf.assignments;
 /*
  *  UCF COP3330 Summer 2021 Assignment 4 Solution
  *  Copyright 2021 Micah Puccio-Ball
- *  Files saved as
- * path
- * description
- * Name::description::duedate::0/1
+ *  Tasks are saved as...
+ *  Name::Description::DueDate::Status
  */
 
 import com.sun.javafx.image.BytePixelGetter;

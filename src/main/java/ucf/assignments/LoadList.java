@@ -2,10 +2,8 @@ package ucf.assignments;
 /*
  *  UCF COP3330 Summer 2021 Assignment 4 Solution
  *  Copyright 2021 Micah Puccio-Ball
- *  Files saved as
- * path
- * description
- * Name::description::duedate::0/1
+ *  Tasks are saved as...
+ *  Name::Description::DueDate::Status
  */
 
 import javafx.stage.FileChooser;
@@ -35,8 +33,6 @@ public class LoadList {
             file = new File(path);
         }
 
-
-
         return file;
     }
 
@@ -45,7 +41,6 @@ public class LoadList {
         ArrayList<ItemObject> itemsInList = new ArrayList<>();
 
         String currentLine;
-        String name = file.getName();
         String[] properties;
 
         try {
