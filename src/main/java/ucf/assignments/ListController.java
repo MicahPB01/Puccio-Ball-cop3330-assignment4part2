@@ -40,6 +40,15 @@ public class ListController extends List {
     public DatePicker updateDate;
     public TextField updateDescription;
 
+
+    public void initialize ()    {
+        File file = new File("ToDoList.txt");
+        if(file.exists())   {
+            pathToFile.setText(file.getAbsolutePath());
+            loadHelper();
+        }
+    }
+
     @FXML
     public void addNewItemClick() throws IOException {
         //grab info from text boxes
@@ -166,7 +175,7 @@ public class ListController extends List {
 
         if (itemTable.getSelectionModel().getSelectedItem() != null) {
             ItemObject selectedObject = itemTable.getSelectionModel().getSelectedItem();
-            edit.markIncomeplete(pathToFile.getText(), selectedObject);
+            edit.markIncomplete(pathToFile.getText(), selectedObject);
         } else {
             Alert noSelection = new Alert(Alert.AlertType.INFORMATION);
             noSelection.setTitle("Unable to mark as complete!!");
@@ -184,7 +193,7 @@ public class ListController extends List {
         //push data from the list to the table
         //reload table
 
-        LoadList load = new LoadList();
+        EditList load = new EditList();
         File file = load.loadList(pathToFile.getText());
         ArrayList<ItemObject> items = load.getCompletedInfo(file);
         ObservableList<ItemObject> observableItems = FXCollections.observableArrayList(items);
@@ -202,7 +211,7 @@ public class ListController extends List {
         //push data from the list to the table
         //reload table
 
-        LoadList load = new LoadList();
+        EditList load = new EditList();
         File file = load.loadList(pathToFile.getText());
         ArrayList<ItemObject> items = load.getIncompleteInfo(file);
         ObservableList<ItemObject> observableItems = FXCollections.observableArrayList(items);
@@ -230,11 +239,11 @@ public class ListController extends List {
     public void loadHelper() {
         //get current file path
         //call load from the LoadList class passing the path
-        //convert resulting arraylist into obsersvable array list
+        //convert resulting arraylist into observable array list
         //clear text fields
         //push data to table
 
-        LoadList load = new LoadList();
+        EditList load = new EditList();
         File file = load.loadList(pathToFile.getText());
         pathToFile.setText(file.getPath());
         ArrayList<ItemObject> items = load.getInfo(file);
@@ -255,7 +264,8 @@ public class ListController extends List {
     public void removeAllCLick() throws IOException {
         //overwrite the file currently in use with ""
         //reload the table
-        new FileWriter(pathToFile.getText(), false).close();
+        EditList remove = new EditList();
+        remove.removeAll(pathToFile.getText());
         loadHelper();
     }
 
@@ -279,13 +289,9 @@ public class ListController extends List {
     public void saveListAsClick() throws IOException {
         //have user select new place to save
         //copy current in use file to the placed they decided to save
+        EditList save = new EditList();
+        save.saveList(pathToFile.getText(), "");
+        loadHelper();
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select save location");
-
-        File save = fileChooser.showSaveDialog(new Stage());
-
-        File load = new File(pathToFile.getText());
-        Files.copy(load.toPath(), save.toPath());
     }
 }

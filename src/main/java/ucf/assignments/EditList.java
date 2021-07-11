@@ -9,20 +9,16 @@ package ucf.assignments;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
-public class LoadList {
+public class EditList {
     public File loadList(String path) {
         System.out.println("Entered LoadList.loadList with path: " +path);
-        //clears req 19 and 20
         //create new file chooser
         //allow user to select one or more files
-        //for each file, read the first three lines to get path, name, and description
-        //store the path, name, and description into observable arraylist
-        //show observable array list in tableview
+        //return the selected file
         File file;
         if(path.equalsIgnoreCase("")) {
             FileChooser fileChooser = new FileChooser();
@@ -51,7 +47,6 @@ public class LoadList {
             while(currentLine != null)   {
                 System.out.printf("%s\n",currentLine);
                 properties = currentLine.split("::");
-                System.out.printf("Name: %s\nDescription: %s\nDue Date: %s\nStatus: %s\n", properties[0],properties[1],properties[2],properties[3] );
                 ItemObject tempItem = new ItemObject(properties[0],properties[1],properties[2],properties[3]);
                 itemsInList.add(tempItem);
                 currentLine = bufferedReader.readLine();
@@ -129,6 +124,42 @@ public class LoadList {
         }
 
         return itemsInList;
+    }
+
+    public boolean saveList(String path, String TEST) throws IOException {
+        //prompt user for save location
+        //copy current list into chosen location
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select save location");
+        boolean exists = false;
+        File save;
+        if(TEST.equalsIgnoreCase("TEST::::::TEST"))   {
+            save = new File("SaveTest.txt");
+        }
+        else {
+            save = fileChooser.showSaveDialog(new Stage());
+        }
+        File load = new File(path);
+        Files.copy(load.toPath(), save.toPath());
+
+
+
+        if(save.exists())   {
+            exists = true;
+        }
+        return exists;
+    }
+
+    public boolean removeAll(String path)   {
+        boolean removed = false;
+        try {
+            new FileWriter(path, false).close();
+           removed = true;
+        }
+        catch(Exception e){
+
+        }
+        return removed;
     }
 
 }

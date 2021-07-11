@@ -39,11 +39,12 @@ public class EditItem {
 
     }
 
-    public String removeItem(String path, ItemObject item) throws IOException {
+    public boolean removeItem(String path, ItemObject item) throws IOException {
         //find an entry in the txt file the matches the object the user selected
         //when the line is found call to the FileIO class
 
         System.out.printf("Entered EditItem.removeItem\n");
+        boolean removed = false;
         FileIO change = new FileIO();
         String[] properties = new String[4];
         String[] selectedProperties = new String[4];
@@ -68,6 +69,11 @@ public class EditItem {
 
                 if(!matches(item, tempItem))   {
                     newFileData.add(currentLine);
+                    System.out.println("Didnt find item");
+                }
+                else   {
+                    System.out.println("Found item");
+                    removed = true;
                 }
                 currentLine = bufferedReader.readLine();
             }
@@ -79,7 +85,7 @@ public class EditItem {
         change.removeOldFile(path);
         change.renameFile(path, newPath);
 
-        return "complete";
+        return removed;
     }
 
 
@@ -90,14 +96,14 @@ public class EditItem {
     }
 
 
-    public String editDescription(String path, ItemObject item, String newDescription) throws IOException {
+    public boolean editDescription(String path, ItemObject item, String newDescription) throws IOException {
         //shorten new description to 256 characters
         //Find the line in the txt file which matches the selected object
         //once the correct task is found, remove the line, replacing it with the same thing except with the new description
         //call to FileIO class
         System.out.printf("Entered EditItem.editDescription\n");
         int length = 256;
-
+        boolean updated = false;
         if(newDescription.length() > 256)
         {
             newDescription = newDescription.substring(0, length);
@@ -129,6 +135,7 @@ public class EditItem {
                 }
                 else   {
                     currentLine = properties[0]+"::"+newDescription+"::"+properties[2]+"::"+properties[3];
+                    updated = true;
                     newFileData.add(currentLine);
                 }
                 currentLine = bufferedReader.readLine();
@@ -141,15 +148,16 @@ public class EditItem {
         change.removeOldFile(path);
         change.renameFile(path, newPath);
 
-        return "complete";
+        return updated;
     }
 
-    public String editDueDate(String path, ItemObject item, String newDate) throws IOException {
+    public boolean editDueDate(String path, ItemObject item, String newDate) throws IOException {
         //Find the line in the txt file which matches the selected object
         //once the correct task is found, remove the line, replacing it with the same thing except with the new due date
         //call to FileIO class
         System.out.printf("Entered EditItem.editDescription\n");
         FileIO change = new FileIO();
+        boolean updated = false;
         String[] properties = new String[4];
         String[] selectedProperties = new String[4];
         String currentLine;
@@ -169,6 +177,7 @@ public class EditItem {
             while(currentLine != null)   {
                 properties = currentLine.split("::");
 
+
                 ItemObject tempItem = new ItemObject(properties[0],properties[1],properties[2],properties[3]);
 
                 if(!matches(item, tempItem))   {
@@ -176,8 +185,10 @@ public class EditItem {
                 }
                 else   {
                     currentLine = properties[0]+"::"+properties[1]+"::"+newDate+"::"+properties[3];
+                    updated = true;
                     newFileData.add(currentLine);
                 }
+                System.out.println(currentLine);
                 currentLine = bufferedReader.readLine();
             }
             bufferedReader.close();
@@ -189,15 +200,16 @@ public class EditItem {
         change.renameFile(path, newPath);
 
 
-        return "complete";
+        return updated;
     }
 
-    public String markIncomeplete(String path, ItemObject item) throws IOException {
+    public boolean markIncomplete(String path, ItemObject item) throws IOException {
         //Find the line in the txt file which matches the selected object
         //once the correct task is found, remove the line, replacing it with the same thing except with "Incomplete" and the end of the line
         //call to FileIO class
         System.out.printf("Entered EditItem.markComplete\n");
         FileIO change = new FileIO();
+        boolean updated = false;
         String[] properties = new String[4];
         String[] selectedProperties = new String[4];
         String currentLine;
@@ -224,6 +236,7 @@ public class EditItem {
                 }
                 else   {
                     currentLine = properties[0]+"::"+properties[1]+"::"+properties[2]+"::"+"Incomplete";
+                    updated =  true;
                     newFileData.add(currentLine);
                 }
                 currentLine = bufferedReader.readLine();
@@ -236,14 +249,15 @@ public class EditItem {
         change.removeOldFile(path);
         change.renameFile(path, newPath);
 
-        return "complete";
+        return updated;
     }
 
-    public String markComplete(String path, ItemObject item) throws IOException {
+    public boolean markComplete(String path, ItemObject item) throws IOException {
         //Find the line in the txt file which matches the selected object
         //once the correct task is found, remove the line, replacing it with the same thing except with "Complete" and the end of the line
         //call to FileIO class
         System.out.printf("Entered EditItem.markComplete\n");
+        boolean updated = false;
         FileIO change = new FileIO();
         String[] properties = new String[4];
         String[] selectedProperties = new String[4];
@@ -271,6 +285,7 @@ public class EditItem {
                 }
                 else   {
                     currentLine = properties[0]+"::"+properties[1]+"::"+properties[2]+"::"+"Complete";
+                    updated = true;
                     newFileData.add(currentLine);
                 }
                 currentLine = bufferedReader.readLine();
@@ -283,7 +298,7 @@ public class EditItem {
         change.removeOldFile(path);
         change.renameFile(path, newPath);
 
-        return "complete";
+        return updated;
     }
 
 
