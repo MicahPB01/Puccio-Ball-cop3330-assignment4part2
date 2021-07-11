@@ -7,8 +7,10 @@ package ucf.assignments;
  *  Name::Description::DueDate::Status
  */
 
-import javafx.fxml.FXML;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 
 public class EditItem {
 
-    public String addItem(String path, String[] properties)   {
+    public void addItem(String path, String[] properties)   {
         //shorten description to 256 characters
         //add a line of text to txt file using item properties
         System.out.println("Entered EditItem.addItem");
@@ -30,10 +32,8 @@ public class EditItem {
         Path filePath = Path.of(path);
         try   {
             Files.write((filePath), (properties[0] + "::" + properties[1] + "::" + properties[2] + "::Incomplete\n").getBytes(), StandardOpenOption.APPEND);
-            return "Complete";
         }
         catch(Exception ignored)   {
-            return "Error";
         }
 
 
@@ -43,10 +43,10 @@ public class EditItem {
         //find an entry in the txt file the matches the object the user selected
         //when the line is found call to the FileIO class
 
-        System.out.printf("Entered EditItem.removeItem\n");
+        System.out.print("Entered EditItem.removeItem\n");
         boolean removed = false;
         FileIO change = new FileIO();
-        String[] properties = new String[4];
+        String[] properties;
         String[] selectedProperties = new String[4];
         String currentLine;
         String newPath;
@@ -101,7 +101,7 @@ public class EditItem {
         //Find the line in the txt file which matches the selected object
         //once the correct task is found, remove the line, replacing it with the same thing except with the new description
         //call to FileIO class
-        System.out.printf("Entered EditItem.editDescription\n");
+        System.out.print("Entered EditItem.editDescription\n");
         int length = 256;
         boolean updated = false;
         if(newDescription.length() > 256)
@@ -109,7 +109,7 @@ public class EditItem {
             newDescription = newDescription.substring(0, length);
         }
         FileIO change = new FileIO();
-        String[] properties = new String[4];
+        String[] properties;
         String[] selectedProperties = new String[4];
         String currentLine;
         String newPath;
@@ -155,10 +155,10 @@ public class EditItem {
         //Find the line in the txt file which matches the selected object
         //once the correct task is found, remove the line, replacing it with the same thing except with the new due date
         //call to FileIO class
-        System.out.printf("Entered EditItem.editDescription\n");
+        System.out.print("Entered EditItem.editDescription\n");
         FileIO change = new FileIO();
         boolean updated = false;
-        String[] properties = new String[4];
+        String[] properties;
         String[] selectedProperties = new String[4];
         String currentLine;
         String newPath;
@@ -207,10 +207,10 @@ public class EditItem {
         //Find the line in the txt file which matches the selected object
         //once the correct task is found, remove the line, replacing it with the same thing except with "Incomplete" and the end of the line
         //call to FileIO class
-        System.out.printf("Entered EditItem.markComplete\n");
+        System.out.print("Entered EditItem.markComplete\n");
         FileIO change = new FileIO();
         boolean updated = false;
-        String[] properties = new String[4];
+        String[] properties;
         String[] selectedProperties = new String[4];
         String currentLine;
         String newPath;
@@ -256,10 +256,10 @@ public class EditItem {
         //Find the line in the txt file which matches the selected object
         //once the correct task is found, remove the line, replacing it with the same thing except with "Complete" and the end of the line
         //call to FileIO class
-        System.out.printf("Entered EditItem.markComplete\n");
+        System.out.print("Entered EditItem.markComplete\n");
         boolean updated = false;
         FileIO change = new FileIO();
-        String[] properties = new String[4];
+        String[] properties;
         String[] selectedProperties = new String[4];
         String currentLine;
         String newPath;

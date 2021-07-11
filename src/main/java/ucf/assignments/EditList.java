@@ -156,7 +156,7 @@ public class EditList {
             new FileWriter(path, false).close();
            removed = true;
         }
-        catch(Exception e){
+        catch(Exception ignored){
 
         }
         return removed;

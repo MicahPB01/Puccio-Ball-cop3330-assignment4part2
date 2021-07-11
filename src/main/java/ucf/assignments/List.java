@@ -6,7 +6,6 @@ package ucf.assignments;
  *  Name::Description::DueDate::Status
  */
 
-import com.sun.javafx.image.BytePixelGetter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +13,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class List extends Application {
 
@@ -26,7 +25,7 @@ public class List extends Application {
     @Override
     public void start(Stage primaryStage) {
         try   {
-            Parent root = FXMLLoader.load(getClass().getResource("List.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("List.fxml")));
 
             Scene scene = new Scene(root);
 

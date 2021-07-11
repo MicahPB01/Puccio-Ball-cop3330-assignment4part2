@@ -18,32 +18,12 @@ public class ItemObject {
         return description.get();
     }
 
-    public SimpleStringProperty descriptionProperty() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description.set(description);
-    }
-
     public String getDueDate() {
         return dueDate.get();
     }
 
-    public SimpleStringProperty dueDateProperty() {
-        return dueDate;
-    }
-
-    public void setDueDate(String dueDate) {
-        this.dueDate.set(dueDate);
-    }
-
     public String getStatus() {
         return status.get();
-    }
-
-    public SimpleStringProperty statusProperty() {
-        return status;
     }
 
     public void setStatus(String status) {
@@ -52,14 +32,6 @@ public class ItemObject {
 
     public String getName() {
         return name.get();
-    }
-
-    public SimpleStringProperty nameProperty() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name.set(name);
     }
 
     public ItemObject(String name, String description, String dueDate, String status)   {

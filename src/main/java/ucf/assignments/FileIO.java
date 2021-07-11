@@ -20,8 +20,8 @@ public class FileIO {
         //write the objects to the temp file
         Path filePath = Path.of(createTempFile());
         try   {
-            for(int i = 0; i < items.size(); i++) {
-                Files.write((filePath), items.get(i).getBytes(), StandardOpenOption.APPEND);
+            for (String item : items) {
+                Files.write((filePath), item.getBytes(), StandardOpenOption.APPEND);
                 Files.write((filePath), "\n".getBytes(), StandardOpenOption.APPEND);
             }
         }

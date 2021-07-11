@@ -28,8 +28,10 @@ class ListController{
 +void showCompleteClick()
 +void showAllClick()
 +void loadListClick()
-+void addListClick()
-+void editListClick()
++void loadHelper()
++void removeAllCLick()
++void helpButtonClick()
++void saveListAsClick()
 }
 
 class EditItem{
@@ -41,12 +43,12 @@ String currentLine
 String newPath
 File file
 +String addItem(String, String[])
-+String removeItem(String, ItemObject)
++boolean removeItem(String, ItemObject)
 +boolean matches(ItemObject, ItemObject)
-+String editDescription(String, ItemObject, String)
-+String editDueDate(String, ItemObject, String)
-+String markIncomplete(String, ItemObject)
-+String markComplete(String, ItemObject)
++boolean editDescription(String, ItemObject, String)
++boolean editDueDate(String, ItemObject, String)
++boolean markIncomplete(String, ItemObject)
++boolean markComplete(String, ItemObject)
 }
 
 class ItemObject{
@@ -69,7 +71,7 @@ class ItemObject{
     +ItemObject(String, String, String, String)
 }
 
-class LoadList{
+class EditList{
     ArrayList<ItemObject> itemsInList
     String currentLine
     String[] properties
@@ -78,7 +80,8 @@ class LoadList{
     +ArrayList<ItemObject> getInfo(File)
     +ArrayList<ItemObject> getCompletedInfo(File)
     +ArrayList<ItemObject> getIncompleteInfo(File)
-
+    +boolean saveList(String, String)
+    +boolean removeAll(String)
 }
 
 
