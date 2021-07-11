@@ -91,7 +91,7 @@ javafx.Application <|-- ListController
 ListController -- List
 ListController -- EditItem
 ListController -- ItemObject
-ListController -- LoadList
+ListController -- EditList
 
 
 
